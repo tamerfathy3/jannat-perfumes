@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JANNAT — فهرس العطور</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black: #0b0a08;
+    --panel: #14120f;
+    --panel-2: #191712;
+    --hairline: rgba(198,161,91,0.28);
+    --hairline-soft: rgba(198,161,91,0.14);
+    --gold: #c6a15b;
+    --gold-bright: #e8c77e;
+    --cream: #f2ead9;
+    --muted: #8f8672;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--black);
+    background-image: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(198,161,91,0.08), transparent 60%);
+    color: var(--cream);
+    font-family: 'Cairo', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .wrap{ max-width: 560px; margin: 0 auto; padding: 0 20px 80px; }
+  .hero{ text-align: center; padding: 56px 12px 34px; }
+  .hero .rule{ width: 56px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 0 auto 22px; }
+  .hero .wordmark{ font-family: 'Cormorant Garamond', serif; font-weight: 500; font-style: normal; font-size: 44px; letter-spacing: 0.28em; color: var(--gold-bright); text-shadow: 0 0 22px rgba(232,199,126,0.25); padding-right: 0.28em; }
+  .hero .arabic-name{ font-family: 'Aref Ruqaa', serif; font-size: 22px; color: var(--cream); margin-top: 10px; opacity: 0.92; }
+  .hero .tagline{ font-family: 'Cairo', sans-serif; font-weight: 300; font-size: 14px; color: var(--muted); letter-spacing: 0.04em; margin-top: 16px; line-height: 1.9; }
+  .hero .rule.bottom{ margin-top: 26px; }
+  .search-block{ padding: 30px 0 10px; }
+  .search-label{ font-family: 'Aref Ruqaa', serif; font-size: 19px; color: var(--gold); margin-bottom: 14px; text-align: center; }
+  .search-field{ position: relative; border-bottom: 1px solid var(--hairline); transition: border-color 0.25s ease; }
+  .search-field:focus-within{ border-color: var(--gold); }
+  .search-field input{ width: 100%; background: transparent; border: none; outline: none; color: var(--cream); font-family: 'Cairo', sans-serif; font-size: 16px; font-weight: 400; padding: 10px 4px 12px 30px; text-align: right; }
+  .search-field input::placeholder{ color: var(--muted); font-weight: 300; }
+  .search-icon{ position: absolute; left: 4px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; opacity: 0.55; }
+  .search-icon svg{ stroke: var(--gold); }
+  .result-count{ text-align: center; font-size: 12.5px; color: var(--muted); letter-spacing: 0.03em; margin-top: 14px; font-weight: 300; }
+  .result-count b{ color: var(--gold); font-weight: 600; }
+  .catalogue{ margin-top: 8px; }
+  .letter-group{ margin-top: 34px; }
+  .letter-head{ display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+  .letter-head .glyph{ font-family: 'Aref Ruqaa', serif; font-size: 26px; color: var(--gold-bright); line-height: 1; min-width: 30px; text-align: center; }
+  .letter-head .line{ flex: 1; height: 1px; background: var(--hairline-soft); }
+  .entry-list{ list-style: none; margin: 6px 0 0; padding: 0; }
+  .entry{ display: block; text-decoration: none; color: inherit; }
+  .entry-row{ display: flex; align-items: center; gap: 14px; padding: 13px 2px; border-bottom: 1px solid var(--hairline-soft); transition: background 0.18s ease; }
+  .entry:active .entry-row, .entry:hover .entry-row{ background: rgba(198,161,91,0.06); }
+  .entry-num{ font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--muted); min-width: 26px; text-align: center; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+  .entry-name{ flex: 1; font-size: 16px; font-weight: 400; color: var(--cream); letter-spacing: 0.01em; }
+  .entry:hover .entry-name, .entry:active .entry-name{ color: var(--gold-bright); }
+  .order-btn{ flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; transition: border-color 0.18s ease, background 0.18s ease; }
+  .entry:hover .order-btn, .entry:active .order-btn{ border-color: var(--gold); background: rgba(198,161,91,0.1); }
+  .order-btn svg{ width: 15px; height: 15px; fill: var(--gold); }
+  .no-results{ text-align: center; padding: 60px 20px; color: var(--muted); font-size: 14px; display: none; }
+  .no-results .glyph{ font-family: 'Aref Ruqaa', serif; font-size: 30px; color: var(--gold); display: block; margin-bottom: 14px; }
+  .footer{ margin-top: 60px; text-align: center; padding-top: 26px; border-top: 1px solid var(--hairline-soft); }
+  .footer .note{ font-size: 11.5px; color: var(--muted); line-height: 2; letter-spacing: 0.02em; }
+  .footer .brand{ font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; color: var(--gold); font-size: 13px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="rule"></div>
+    <div class="wordmark">JANNAT</div>
+    <div class="arabic-name">جـنّـة للعطور</div>
+    <p class="tagline">فهرس داخلي لعطورنا المُركّزة بعناية،<br>لعرضها على العملاء وطلبها مباشرة</p>
+    <div class="rule bottom"></div>
+  </div>
+  <div class="search-block">
+    <div class="search-label">فهرس العطور</div>
+    <div class="search-field">
+      <input type="text" id="searchInput" placeholder="ابحث عن اسم العطر…" autocomplete="off">
+      <span class="search-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </span>
+    </div>
+    <div class="result-count" id="resultCount"></div>
+  </div>
+  <div class="catalogue" id="catalogue"></div>
+  <div class="no-results" id="noResults">
+    <span class="glyph">؟</span>
+    لا توجد نتيجة مطابقة لبحثك
+  </div>
+  <div class="footer">
+    <div class="note">
+      نسخة أولى قيد التطوير — الأسماء فقط بانتظار إضافة<br>
+      الفئات، الأسعار، والصور في التحديثات القادمة
+    </div>
+    <div class="brand">JANNAT PERFUMES</div>
+  </div>
+</div>
+<script>
+const PERFUMES = ["فيرزاتشى ديلان بلو", "بلاك اوكيد", "استرونج ويذ يو", "اسكيب ( حريمى ورجالى )", "BM", "بلاك ايس", "هوجو بوص", "دانهل ديزير ريد", "ايسماكى", "باد بوى", "دافى دوف تشامبيون", "بلاك افغانوا", "هيفين درعه ( بديل سلطان )", "بمب شيل", "مرسيدس", "بوما اسبورت", "تندر", "داركار", "بوص ذا سنت", "شيروتى", "كريزى لاف", "عمرو دياب", "وصال", "ليكزيز", "فى اى بى 212", "كاريزما", "توسكان ليزر", "مونتانا", "بويزون", "بربرى لندن", "ماى واى", "مسك طهارة", "ميد نايت", "اسكلبشر", "هريرا 212", "عود بوكيه", "نساء العالم", "بلو شانيل", "كريد افنتوس", "روبيرتو كفالى ( حريمى ورجالى )", "نايت فالى بتشولى", "لاكوست وايت", "اولمبيا", "سى الحمرا ( باشن )", "فرى سكسى ناو", "برايت كريستال", "سكاندل", "سكاندل باى نايت", "سو سكندل", "مانسيرا روز فانيلا", "بربرى بادى", "ديزاير بلو", "فندى", "جيمى شو", "هيفن", "انفكتوس", "اوشن لانج", "جوتشى جيلتى بلاك", "ذا وان", "شهره", "بكرات روج", "مضاوى", "بربرى هير", "باكوربان باور هوم", "بيور اكس اس", "سوفاج", "بنك شوجر", "الترامال", "لاف اذ هفنلى", "فيرزاتشى ايروس", "مسك رومان", "التراميل", "دانهل بيورسويت", "ايربابورا", "ناكسوس من زيرجوف", "سلفرسنت", "اكوا سيلستا", "اكوا اتلانتك", "وان مان شو", "لابيدوس", "فوياج", "بلو فور من", "ديلينا دى مارلى", "الورا سبورت", "مافيستو", "ستار لايت", "جيلتى بلاك", "اكوا دى جو", "اليسيوم", "3G", "هاشيفات", "وود جو مالون", "لانوى دلوم الكتريك", "سايبرس اند جرابفاين", "ليم باسيل", "لايت بلو", "بلو سيديكشن", "نيفيا", "CK1", "فيرزاتشى بيور هوم", "اترنتى اكوا", "فلير ناركوتيك", "انجل شير", "ميجامار", "نيشان هندريد", "بلاك فانتوم", "لاكوست بلاك", "كريستال ووتر", "جود جيرل", "سايد افيكت", "عود افريكانو", "ايدول لانكوم", "كاتى بيرى", "جوتشى باى جوتشى", "عود فورد جرنتس", "بلاتنيوم", "مونت بلانك", "الكسندريا 2", "مون اسباركل", "بوما جام", "هوجو انرجى", "هيرود دى مارلى", "فيرسى ابير", "عود ابيض", "خلطة القرشى", "كلمات", "عمانى", "سيدلى دى مارلى", "لايتون دى مارلى", "امواج كلايف", "هيروز", "اكسنتو", "امير العود", "شموخ", "بكرات ريد توست", "سيكسى جرافيتى", "تاتش اف بنك", "الدرا من جاك سنت", "اندفيدوال", "دانهل لندن", "بلاك اوبيوم", "بلاك اوبيوم الفلورى", "بلاك اوبيوم انتس", "عود اصفهان", "ميندار امواج", "امواج ابيك", "امواج انترلود", "تيرونى ( اورتو باريسى )", "كافى تيبروزا ( اتيلير )", "باروندا ( نسماتو )", "جراند سوار", "انجل شير كليان", "ابل براندى ( كليان )", "ماريجوانا ( بايريدو )", "بيجاسوس دى مارلى", "كابيتال (زيرجوف)", "الف ليلة وليلة", "صقر الجزيرة", "عود عمانى", "اومبريه ليزر", "عود وود", "توباكو عود", "مانسيرا بلاك فانيليا", "مانسيرا ريد توباكو", "توباكو فانيليا", "بلغارى من ان بلاك", "جوتشى عود انتس", "ازارو وانتد باى نايت", "هوجو بوص ذا سنت", "استرونج ويذ مى", "سيجار", "ماربرت مان", "جاكومو", "رومبا", "كوبرا", "لايتون", "لايتون اكسليوسف", "اندرا", "روجا دوف اليسيوم", "جوتشى جيلتى ايسلوت", "استرونجر وز يو انتسلى", "كارتير ديكلاريشن", "الترامارين", "ديلينا اكسكلوسيف", "اسكاندل رجالى", "فرى سيكسى", "كوكو مودموزيل", "كول ووتر رجالى", "كيركى", "MY Self", "اكوا دى جو", "باريس هيلتون", "ابيك امواج"];
+  const WHATSAPP_NUMBER = "201090334893";
+  const ARABIC_ORDER = "ابتثجحخدذرزسشصضطظعغفقكلمنهوي".split("");
+  function normalizeLetter(ch){
+    const map = { "أ":"ا","إ":"ا","آ":"ا","ٱ":"ا","ة":"ه","ى":"ي" };
+    return map[ch] || ch;
+  }
+  function firstLetterKey(name){
+    const trimmed = name.trim();
+    const ch = trimmed.charAt(0);
+    if (/[A-Za-z0-9]/.test(ch)) return "#";
+    return normalizeLetter(ch);
+  }
+  const groups = {};
+  PERFUMES.forEach((name, i) => {
+    const key = firstLetterKey(name);
+    if (!groups[key]) groups[key] = [];
+    groups[key].push({ name, id: i + 1 });
+  });
+  Object.keys(groups).forEach(key => {
+    groups[key].sort((a, b) => a.name.localeCompare(b.name, 'ar'));
+  });
+  const orderedKeys = [...ARABIC_ORDER.filter(l => groups[l]), ...(groups["#"] ? ["#"] : [])];
+  const catalogueEl = document.getElementById('catalogue');
+  const noResultsEl = document.getElementById('noResults');
+  const resultCountEl = document.getElementById('resultCount');
+  const searchInput = document.getElementById('searchInput');
+  function whatsappLink(name){
+    const text = encodeURIComponent(`السلام عليكم، حابب أستفسر عن عطر: ${name}`);
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
+  }
+  function orderIconSVG(){
+    return `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.31 2 11.64c0 1.93.56 3.72 1.53 5.24L2 22l5.29-1.47a10.4 10.4 0 0 0 4.71 1.11c5.52 0 10-4.31 10-9.64C22 6.31 17.52 2 12 2zm5.2 13.62c-.22.62-1.28 1.17-1.77 1.24-.45.07-1.02.1-1.65-.1a15 15 0 0 1-1.5-.55c-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.75 0-1.3.68-1.94.92-2.2.24-.27.52-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.6.45.22.53.75 1.83.82 1.96.07.13.11.29.02.47-.09.18-.14.29-.27.44-.13.16-.28.35-.4.47-.13.13-.27.27-.12.53.16.27.7 1.14 1.5 1.84 1.03.9 1.9 1.18 2.17 1.31.27.13.43.11.59-.07.16-.18.68-.78.86-1.05.18-.27.36-.22.6-.13.24.09 1.53.71 1.79.84.27.13.44.2.51.31.07.11.07.62-.15 1.24z"/></svg>`;
+  }
+  function render(filter){
+    catalogueEl.innerHTML = '';
+    const q = filter.trim().toLowerCase();
+    let visibleCount = 0;
+    orderedKeys.forEach(key => {
+      const items = groups[key].filter(item => item.name.toLowerCase().includes(q));
+      if (items.length === 0) return;
+      visibleCount += items.length;
+      const groupEl = document.createElement('div');
+      groupEl.className = 'letter-group';
+      const headEl = document.createElement('div');
+      headEl.className = 'letter-head';
+      headEl.innerHTML = `<span class="glyph">${key === '#' ? 'A–Z' : key}</span><span class="line"></span>`;
+      groupEl.appendChild(headEl);
+      const listEl = document.createElement('ul');
+      listEl.className = 'entry-list';
+      items.forEach(item => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'entry';
+        a.href = whatsappLink(item.name);
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = `
+          <div class="entry-row">
+            <span class="entry-num">${String(item.id).padStart(3,'0')}</span>
+            <span class="entry-name">${item.name}</span>
+            <span class="order-btn">${orderIconSVG()}</span>
+          </div>`;
+        li.appendChild(a);
+        listEl.appendChild(li);
+      });
+      groupEl.appendChild(listEl);
+      catalogueEl.appendChild(groupEl);
+    });
+    noResultsEl.style.display = visibleCount === 0 ? 'block' : 'none';
+    resultCountEl.innerHTML = q
+      ? `<b>${visibleCount}</b> نتيجة من أصل ${PERFUMES.length} عطر`
+      : `<b>${PERFUMES.length}</b> عطر متاح في الفهرس`;
+  }
+  searchInput.addEventListener('input', e => render(e.target.value));
+  render('');
+</script>
+</body>
+  </html>
